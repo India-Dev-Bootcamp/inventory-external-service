@@ -9,7 +9,7 @@ build:
   script: gradle build
   artifacts:
     paths:
-      - build/libs/app-library-0.0.1-SNAPSHOT.jar
+      - build/libs/inventory-external-0.0.1-SNAPSHOT.jar
     reports:
       junit: build/test-results/test/**/TEST-*.xml
 
