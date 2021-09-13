@@ -1,0 +1,35 @@
+stages:
+  - build
+  - package
+  - deploy
+
+build:
+  stage: build
+  image: gradle:latest
+  script: gradle build
+  artifacts:
+    paths:
+      - build/libs/app-library-0.0.1-SNAPSHOT.jar
+    reports:
+      junit: build/test-results/test/**/TEST-*.xml
+
+package:
+  stage: package
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker build --iidfile imageid.txt  -t registry.heroku.com/inventory-external-svc/external-app:$CI_COMMIT_SHA .
+    - docker login -u _ -p $HEROKU_TOKEN registry.heroku.com
+    - docker push registry.heroku.com/inventory-external-svc/external-app:$CI_COMMIT_SHA
+  artifacts:
+    paths:
+      - imageid.txt
+
+deploy:
+  stage: deploy
+  image: curlimages/curl
+  script:
+    - echo "Deploying..."
+    - |-
+      curl -X PATCH https://api.heroku.com/apps/inventory-external-svc/formation --header "Content-Type: application/json" --header "Accept: application/vnd.heroku+json; version=3.docker-releases" --header "Authorization: Bearer ${HEROKU_TOKEN}" --data '{ "updates": [ { "type": "web", "docker_image": "'$(cat imageid.txt)'" } ] }'
