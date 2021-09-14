@@ -7,9 +7,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @ToString
-public class PhoneCall {
+public class Sms {
 
-    private int customerId;
+    private String message;
 
     private String phoneNumber;
 }

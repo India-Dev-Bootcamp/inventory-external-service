@@ -2,7 +2,7 @@ package com.tw.gic.bootcamp.inventoryexternal.controller;
 
 import com.tw.gic.bootcamp.inventoryexternal.domain.DigitalDelivery;
 import com.tw.gic.bootcamp.inventoryexternal.domain.Email;
-import com.tw.gic.bootcamp.inventoryexternal.domain.PhoneCall;
+import com.tw.gic.bootcamp.inventoryexternal.domain.Sms;
 import com.tw.gic.bootcamp.inventoryexternal.domain.ProductShipping;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +22,9 @@ public class MainController {
         return ResponseEntity.ok("Sent email to "+email.getEmailId());
     }
 
-    @PostMapping("/phoneCall")
-    public ResponseEntity makePhoneCall(@RequestBody PhoneCall phoneCall){
-        return ResponseEntity.ok("Made phone call to "+phoneCall.getPhoneNumber());
+    @PostMapping("/sms")
+    public ResponseEntity sendSms(@RequestBody Sms sms){
+        return ResponseEntity.ok("Sent sms to "+sms.getPhoneNumber());
     }
 
     @PostMapping("/courierProduct")
