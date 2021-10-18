@@ -12,28 +12,32 @@ import org.springframework.web.bind.annotation.*;
 public class MainController {
 
     @GetMapping()
-    public ResponseEntity home(){
+    public ResponseEntity home() {
         return ResponseEntity.ok("Welcome to Inventory External Service. " +
                 "See the all the APIs <a href=\"swagger-ui.html\">here</a>");
     }
 
     @PostMapping("/email")
-    public ResponseEntity sendEmail(@RequestBody Email email){
-        return ResponseEntity.ok("Sent email to "+email.getEmailId());
+    public ResponseEntity sendEmail(@RequestBody Email email) {
+        System.out.println("Sending email " + email);
+        return ResponseEntity.ok("Sent email to " + email.getEmailId());
     }
 
     @PostMapping("/sms")
-    public ResponseEntity sendSms(@RequestBody Sms sms){
-        return ResponseEntity.ok("Sent sms to "+sms.getPhoneNumber());
+    public ResponseEntity sendSms(@RequestBody Sms sms) {
+        System.out.println("Sending sms " + sms);
+        return ResponseEntity.ok("Sent sms to " + sms.getPhoneNumber());
     }
 
     @PostMapping("/courierProduct")
-    public ResponseEntity courierProduct(@RequestBody ProductShipping productShipping){
-        return ResponseEntity.ok("Product shipped to "+productShipping.getAddress());
+    public ResponseEntity courierProduct(@RequestBody ProductShipping productShipping) {
+        System.out.println("Shipping product " + productShipping);
+        return ResponseEntity.ok("Product shipped to " + productShipping.getAddress());
     }
 
     @PostMapping("/digitalDelivery")
-    public ResponseEntity deliverDigitalProduct(@RequestBody DigitalDelivery digitalDelivery){
-        return ResponseEntity.ok("Product digitally delivered to "+digitalDelivery.getEmail());
+    public ResponseEntity deliverDigitalProduct(@RequestBody DigitalDelivery digitalDelivery) {
+        System.out.println("Delivering digitally  " + digitalDelivery);
+        return ResponseEntity.ok("Product digitally delivered to " + digitalDelivery.getEmail());
     }
 }
